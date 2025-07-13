@@ -1,99 +1,65 @@
+# Xu-Guang-s-birthday-1
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>予告状</title>
+  <title>XGbirthday</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      background-color: #fefefe;
-      color: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding: 1rem;
-    }
-    .page {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-    .page.active {
-      display: flex;
-    }
-    .btn {
-      padding: 0.5rem 1rem;
-      background: #222;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .input {
-      padding: 0.4rem;
-      font-size: 1rem;
-      border: 1px solid #aaa;
-      border-radius: 4px;
-    }
-    .error {
-      color: crimson;
-      margin-top: 0.5rem;
-    }
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    .hidden { display: none; }
+    img { max-width: 80%; height: auto; margin-bottom: 20px; }
+    input[type="text"] { padding: 5px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    .arrow { font-size: 40px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <!-- Page 1: 予告状 -->
-  <div class="page active" id="page1">
-    <h1>予告状</h1>
-    <p>今夜8時、私はあなたの研究論文を盗む！</p>
-    <p>親愛なるお嬢さん</p>
-    <p style="margin-top: 1rem;">怪盗キッド</p>
-    <p style="font-size: 0.9rem; color: #888;">※本页将在 8 秒后自动消失……请准备好迎接挑战。</p>
+  <!-- Page 1 -->
+  <div id="page1">
+    <img src="XGbirthday.png" alt="XGbirthday">
+    <br>
+    <button onclick="showTranslation()">翻译</button>
   </div>
 
-  <!-- Page 2: 密码输入 -->
-  <div class="page" id="page2">
-    <h2>请输入徐广的生日：</h2>
-    <input type="password" class="input" id="password" maxlength="4" placeholder="四位数字">
-    <button class="btn" onclick="checkPassword()">确定</button>
-    <div class="error" id="error"></div>
+  <!-- Page 2 -->
+  <div id="page2" class="hidden">
+    <img src="XGXGbirthday-translation.png" alt="XGXGbirthday-translation">
+    <div class="arrow" onclick="showPasswordPage()">⬇️</div>
   </div>
 
-  <!-- Page 3: 信件 -->
-  <div class="page" id="page3">
-    <h2>亲爱的广广：</h2>
-    <p style="max-width: 500px; line-height: 1.6;">
-      生日快乐！🎂✨<br><br>
-      这是我为你准备的生日礼物，一个小钥匙扣，第一次做有点粗糙希望你不要介意，我找了红红问说你喜欢弥豆子、柯南、水豚等等，我在搜索图纸的时候看到这个怪盗基德的图纸，我觉得非常好看而且有趣就选了他拼了出来。<br><br>
-      然后呢，祝你生日快乐，你在新的一岁里，每一天都快乐、健康，科研顺利，数据超级好，论文库库发。<br><br>
-      最后，这个NFC标签，使用NFC tools APP就能实现多种你喜欢的内容的录入，期待你有趣的DIY~<br><br>
-      ——爱你的漫娅！
-    </p>
+  <!-- Page 3 -->
+  <div id="page3" class="hidden">
+    <p>请输入四位数密码：</p>
+    <input type="text" id="password" placeholder="0712">
+    <button onclick="checkPassword()">确认</button>
+    <p id="error" style="color:red;"></p>
+  </div>
+
+  <!-- Page 4 -->
+  <div id="page4" class="hidden">
+    <h2>🎉生日快乐！🎂</h2>
+    <img src="celebration.png" alt="Celebration">
   </div>
 
   <script>
-    setTimeout(() => {
-      document.getElementById("page1").classList.remove("active");
-      document.getElementById("page2").classList.add("active");
-    }, 8000);
+    function showTranslation() {
+      document.getElementById('page1').classList.add('hidden');
+      document.getElementById('page2').classList.remove('hidden');
+    }
+
+    function showPasswordPage() {
+      document.getElementById('page2').classList.add('hidden');
+      document.getElementById('page3').classList.remove('hidden');
+    }
 
     function checkPassword() {
-      const pw = document.getElementById("password").value;
-      const err = document.getElementById("error");
-      if (pw === "0712") {
-        document.getElementById("page2").classList.remove("active");
-        document.getElementById("page3").classList.add("active");
+      const pwd = document.getElementById('password').value.trim();
+      const error = document.getElementById('error');
+      if (pwd === "0712") {
+        document.getElementById('page3').classList.add('hidden');
+        document.getElementById('page4').classList.remove('hidden');
       } else {
-        err.textContent = "啊嘞？再想想……你的生日你还会忘吗？";
+        error.textContent = "啊嘞？再想想……提示“生日”";
       }
     }
   </script>
